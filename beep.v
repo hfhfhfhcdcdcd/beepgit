@@ -44,52 +44,52 @@ module beep (
          if (freq_cnt == Do_freq) begin
             freq_cnt <= 17'd0;         
          end
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < Do_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end 
       Ri:begin
          if (freq_cnt == Ri_freq) begin
                freq_cnt <= 17'd0;         
             end
-            else
-               freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < Ri_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end
       Mi:begin
          if (freq_cnt == Mi_freq) begin
             freq_cnt <= 17'd0;         
          end
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < Mi_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end 
       Fa:begin
          if (freq_cnt == Fa_freq) begin
             freq_cnt <= 17'd0;         
          end
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < Fa_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end 
       So:begin
          if (freq_cnt == So_freq) begin
             freq_cnt <= 17'd0;         
          end
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < So_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end 
       La:begin
          if (freq_cnt == La_freq) begin
             freq_cnt <= 17'd0;         
          end  
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else if(freq_cnt < La_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end
       Xi:begin
          if (freq_cnt == Xi_freq) begin
             freq_cnt <= 17'd0;         
          end   
-         else
-            freq_cnt <= freq_cnt + 17'd1;
+         else  if(freq_cnt < Xi_freq)
+            freq_cnt <= freq_cnt + 1'b1;
       end 
-      default:; 
+      default:freq_cnt <= 17'd0; 
     endcase
  end
 /*----exec------IDLE到state_Do的触发信号--------*/
@@ -121,12 +121,9 @@ module beep (
       IDLE:begin
          if (exec) begin
             next_state = Do;
-            cnt_500ms = 25'd0;
-
          end
          else begin
             next_state = IDLE;
-            cnt_500ms = 25'd0;
          end            
       end
       Do  :begin
@@ -135,7 +132,6 @@ module beep (
          end
          else begin
             next_state = Do;
-            cnt_500ms = 25'd0;
          end
       end
       Ri  :begin
@@ -144,7 +140,6 @@ module beep (
          end
          else begin
             next_state = Ri;
-            cnt_500ms = 25'd0;
          end
       end
       Mi  :begin
@@ -153,7 +148,6 @@ module beep (
          end
          else begin
             next_state = Mi;
-            cnt_500ms = 25'd0;
          end           
       end
       Fa  :begin
@@ -162,7 +156,6 @@ module beep (
          end
          else begin
             next_state = Fa;
-            cnt_500ms = 25'd0;
          end            
       end
       So  :begin
@@ -171,7 +164,6 @@ module beep (
          end
          else begin
             next_state = So;
-            cnt_500ms = 25'd0;
          end            
       end
       La  :begin
@@ -180,7 +172,6 @@ module beep (
          end
          else begin
             next_state = La;
-            cnt_500ms = 25'd0;
          end            
       end
       Xi  :begin
@@ -189,7 +180,6 @@ module beep (
          end
          else begin
             next_state = Xi;
-            cnt_500ms = 25'd0;
          end            
       end
       default: ;
@@ -206,7 +196,7 @@ module beep (
        end
        Do  :begin
              beep = 1'b1;
-             if(freq_cnt == Do_freq/2-1)begin
+             if(freq_cnt > Do_freq/2-1)begin
                 beep = 1'b0;
              end
        end
@@ -258,7 +248,7 @@ module beep (
                 beep = 1'b0;
              end
        end
-       default:;
+       default:beep =beep ;
     endcase
  end
 endmodule
