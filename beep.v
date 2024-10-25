@@ -1,6 +1,6 @@
 module beep (
-    input   rst     ,
-    input   clk     ,
+    input      rst     ,
+    input      clk     ,
     output reg beep
 );
 /*----cnt_500ms-------------------------------*/
@@ -14,7 +14,7 @@ module beep (
       cnt_500ms <= 25'd0;
    end
    else 
-      cnt_500ms <= cnt_500ms + 25'd1;
+      cnt_500ms <= cnt_500ms + 1'b1;
  end
 /*----freq_cnt-----------------------*/
  reg    [16:0]     freq_cnt     ;
